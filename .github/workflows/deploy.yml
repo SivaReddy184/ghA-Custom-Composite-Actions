@@ -10,9 +10,12 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4
       - name: Load & cache dependencies
+        id: cache-deps
         uses: ./.github/actions/cache-dependencies
         with:
           caching: 'false'  #using caching input as false so that caching will not be use in linkjob
+      - name: Output Info
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache}}"
       - name: Lint code
         run: npm run lint
   test:
